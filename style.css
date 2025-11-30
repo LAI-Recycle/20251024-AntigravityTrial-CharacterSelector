@@ -424,4 +424,140 @@ header p {
     .char-card.next {
         transform: translateX(60px) scale(0.8) translateZ(-50px) rotateY(-5deg);
     }
+}/* Existing styles remain, adding new ones */
+
+/* View Switching */
+.hidden {
+    display: none !important;
+}
+
+/* Updated Card Styles for Image Tag */
+.char-card {
+    /* Ensure flex or block to hold img */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    /* Remove if needed */
+}
+
+.char-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 26px;
+    /* Slightly less than card border-radius */
+    pointer-events: none;
+    /* Let clicks pass to card */
+
+    /* Silhouette Filter */
+    filter: brightness(0);
+    transition: filter 0.3s ease;
+}
+
+/* Profile View Styles */
+#profile-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.back-btn {
+    align-self: flex-start;
+    margin-bottom: 20px;
+    width: auto;
+    padding: 0 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.profile-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.profile-card {
+    display: flex;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(161, 140, 209, 0.4);
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+}
+
+.profile-image-container {
+    flex: 1;
+    background: linear-gradient(120deg, #a18cd1 0%, #fbc2eb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-details {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-nav {
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsive for Profile */
+@media (max-width: 768px) {
+    .profile-card {
+        flex-direction: column;
+        height: auto;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .profile-image-container {
+        height: 250px;
+    }
+
+    .profile-details {
+        padding: 20px;
+    }
+
+    .profile-content {
+        gap: 10px;
+    }
 }

@@ -37,13 +37,19 @@ const characters = [
 ];
 
 let currentIndex = 0;
-let isDetailsVisible = false;
 const track = document.getElementById('track');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-const detailsPanel = document.getElementById('details');
 
-// Details Elements
+// View Containers
+const homeView = document.getElementById('home-view');
+const profileView = document.getElementById('profile-view');
+
+// Profile Elements
+const backBtn = document.getElementById('backBtn');
+const prevProfileBtn = document.getElementById('prevProfileBtn');
+const nextProfileBtn = document.getElementById('nextProfileBtn');
+const profileImage = document.getElementById('profileImage');
 const charName = document.getElementById('charName');
 const charDesc = document.getElementById('charDesc');
 const statStr = document.getElementById('statStr');
@@ -61,13 +67,17 @@ function renderCards() {
     characters.forEach((char, index) => {
         const card = document.createElement('div');
         card.className = 'char-card';
-        card.style.backgroundImage = `url('${char.image}')`;
         card.dataset.index = index;
 
-        // Click to select or show details
+        // Use img tag for silhouette filter control
+        const img = document.createElement('img');
+        img.src = char.image;
+        img.alt = char.name;
+        card.appendChild(img);
+
+        // Click to select and go to profile
         card.addEventListener('click', (e) => {
             e.stopPropagation();
-
             if (currentIndex !== index) {
                 // Determine direction for shortest path
                 const diff = (index - currentIndex + characters.length) % characters.length;
@@ -76,10 +86,10 @@ function renderCards() {
                 } else {
                     currentIndex = index;
                 }
-                hideDetails();
                 updateCarousel();
             } else {
-                toggleDetails();
+                // Active card clicked -> Go to Profile
+                showProfile();
             }
         });
 
@@ -111,28 +121,22 @@ function updateCarousel() {
     });
 }
 
-function toggleDetails() {
-    if (isDetailsVisible) {
-        hideDetails();
-    } else {
-        showDetails();
-    }
+function showProfile() {
+    homeView.classList.add('hidden');
+    profileView.classList.remove('hidden');
+    updateProfileContent();
 }
 
-function showDetails() {
-    isDetailsVisible = true;
-    detailsPanel.classList.add('visible');
-    updateDetailsContent();
+function hideProfile() {
+    profileView.classList.add('hidden');
+    homeView.classList.remove('hidden');
+    updateCarousel();
 }
 
-function hideDetails() {
-    isDetailsVisible = false;
-    detailsPanel.classList.remove('visible');
-}
-
-function updateDetailsContent() {
+function updateProfileContent() {
     const char = characters[currentIndex];
 
+    profileImage.src = char.image;
     charName.textContent = char.name;
     charDesc.textContent = char.desc;
 
@@ -149,20 +153,31 @@ function updateDetailsContent() {
 
 function nextChar() {
     currentIndex = (currentIndex + 1) % characters.length;
-    hideDetails();
     updateCarousel();
+    if (!profileView.classList.contains('hidden')) {
+        updateProfileContent();
+    }
 }
 
 function prevChar() {
     currentIndex = (currentIndex - 1 + characters.length) % characters.length;
-    hideDetails();
     updateCarousel();
+    if (!profileView.classList.contains('hidden')) {
+        updateProfileContent();
+    }
 }
 
 function setupEvents() {
+    // Home Carousel Controls
     prevBtn.addEventListener('click', prevChar);
     nextBtn.addEventListener('click', nextChar);
 
+    // Profile Controls
+    backBtn.addEventListener('click', hideProfile);
+    prevProfileBtn.addEventListener('click', prevChar);
+    nextProfileBtn.addEventListener('click', nextChar);
+
+    // Touch/Drag Events for Carousel
     let startX = 0;
     let isDragging = false;
 
@@ -201,7 +216,16 @@ function setupEvents() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') prevChar();
         if (e.key === 'ArrowRight') nextChar();
-        if (e.key === 'Enter' || e.key === ' ') toggleDetails();
+        if (e.key === 'Enter' || e.key === ' ') {
+            if (homeView.classList.contains('hidden')) {
+                // In profile view, maybe nothing or select?
+            } else {
+                showProfile();
+            }
+        }
+        if (e.key === 'Escape' && !profileView.classList.contains('hidden')) {
+            hideProfile();
+        }
     });
 }
 
