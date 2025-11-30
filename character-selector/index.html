@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VTuber 推し選擇器</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <header>
+      <h1>尋找你的本命推し</h1>
+      <p>左右滑動 • 點擊查看詳細設定</p>
+    </header>
+
+    <div class="carousel-container">
+      <div class="carousel-track" id="track">
+        <!-- Characters will be injected here by JS -->
+      </div>
+
+      <div class="controls">
+        <button id="prevBtn" class="nav-btn">❮</button>
+        <button id="nextBtn" class="nav-btn">❯</button>
+      </div>
+    </div>
+
+    <div class="character-details" id="details">
+      <h2 id="charName">角色名稱</h2>
+      <p id="charDesc">角色描述...</p>
+      <div class="stats">
+        <div class="stat-item">
+          <span class="label">可愛</span>
+          <div class="bar-bg">
+            <div class="bar-fill" id="statStr" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="label">歌力</span>
+          <div class="bar-bg">
+            <div class="bar-fill" id="statSpd" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="label">遊戲</span>
+          <div class="bar-bg">
+            <div class="bar-fill" id="statInt" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+      <button class="select-btn">確認推し</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
