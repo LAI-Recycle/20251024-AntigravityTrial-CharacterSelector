@@ -16,7 +16,7 @@ const characters = [
     {
         id: 3,
         name: "糖果 喵 (Candy Nyan)",
-        desc: "充滿活力的電競貓娘，最喜歡 FPS 遊戲和能量飲料。直播時總是充滿了歡笑與尖叫。",
+        desc: "充滿活力的電競貓娘，最喜歡 FPS 遊戲和能量飲料了。直播時總是充滿了歡笑與尖叫。",
         stats: { str: 90, spd: 40, int: 100 },
         image: "assets/char3.png"
     },
